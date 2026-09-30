@@ -1,10 +1,3 @@
-"""Generátor hesiel – grafická verzia (tkinter).
-
-Python prepis webovej aplikácie generator-hesiel.html.
-Používa modul secrets, ktorý je určený na bezpečnostne citlivé náhodné hodnoty.
-Spustenie:  python generator_hesiel_gui.py
-"""
-
 import math
 import secrets
 import tkinter as tk
