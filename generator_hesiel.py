@@ -1,8 +1,3 @@
-"""Generátor bezpečných hesiel.
-Používa modul secrets, ktorý je určený na bezpečnostne citlivé náhodné hodnoty
-na rozdiel od random.
-"""
-
 import secrets
 import string
 
