@@ -4,15 +4,15 @@ import tkinter as tk
 from tkinter import ttk
 
 SKUPINY = {
-    "male": ("Malé písmená (a–z)", "abcdefghijklmnopqrstuvwxyz"),
-    "velke": ("Veľké písmená (A–Z)", "ABCDEFGHIJKLMNOPQRSTUVWXYZ"),
-    "cisla": ("Čísla (0–9)", "0123456789"),
-    "specialne": ("Špeciálne znaky (!@#$…)", "!@#$%^&*()-_=+[]{};:,.?"),
+    "male": ("Malé písmená (a-z)", "abcdefghijklmnopqrstuvwxyz"),
+    "velke": ("Veľké písmená (A-Z)", "ABCDEFGHIJKLMNOPQRSTUVWXYZ"),
+    "cisla": ("Čísla (0-9)", "0123456789"),
+    "specialne": ("Špeciálne znaky (!@#$...)", "!@#$%^&*()-_=+[]{};:,.?"),
 }
 
 
+# Vráti heslo a veľkosť abecedy, vybrane je zoznam kľúčov zo SKUPINY
 def generuj_heslo(dlzka, vybrane):
-    """Vráti (heslo, veľkosť abecedy). `vybrane` je zoznam kľúčov zo SKUPINY."""
     if not vybrane:
         raise ValueError("Vyber aspoň jeden typ znakov.")
 
@@ -22,13 +22,13 @@ def generuj_heslo(dlzka, vybrane):
     while len(znaky) < dlzka:
         znaky.append(secrets.choice(vsetky))
 
-    # Zamieša poradie, aby prvé znaky neboli predvídateľné
+    # Premieša poradie, aby prvé znaky neboli predvídateľné
     secrets.SystemRandom().shuffle(znaky)
     return "".join(znaky), len(vsetky)
 
 
+# Vráti popis, percento pre pruh a bity entropie
 def sila_hesla(dlzka, velkost_abecedy):
-    """Vráti (popis, percento pre pruh, bity entropie)."""
     bity = dlzka * math.log2(velkost_abecedy)
     if bity < 40:
         return "Slabé", 25, bity
@@ -39,7 +39,7 @@ def sila_hesla(dlzka, velkost_abecedy):
     return "Veľmi silné", 100, bity
 
 
-class Aplikacia(tk.Tk):
+class GeneratorHesiel(tk.Tk):
     def __init__(self):
         super().__init__()
         self.title("Generátor hesiel")
@@ -52,7 +52,7 @@ class Aplikacia(tk.Tk):
             anchor="w", pady=(0, 12)
         )
 
-        # Heslo + tlačidlo Kopírovať
+        # Heslo a tlačidlo Kopírovať
         riadok = ttk.Frame(ram)
         riadok.pack(fill="x")
         self.heslo = tk.StringVar()
@@ -125,10 +125,10 @@ class Aplikacia(tk.Tk):
             return
         self.clipboard_clear()
         self.clipboard_append(self.heslo.get())
-        self.update()  # aby schránka ostala aj po zatvorení okna
-        self.tlacidlo_kopirovat.config(text="Skopírované ✓")
+        self.update()  # Aby schránka ostala aj po zatvorení okna
+        self.tlacidlo_kopirovat.config(text="Skopírované")
         self.after(1500, lambda: self.tlacidlo_kopirovat.config(text="Kopírovať"))
 
 
 if __name__ == "__main__":
-    Aplikacia().mainloop()
+    GeneratorHesiel().mainloop()
